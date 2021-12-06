@@ -1,0 +1,28 @@
+<!-- El formulario se tiene que llamar como hayamos definido la variable formGroup en el ts -->
+<form [formGroup]="login" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="email">Email:
+      <input type="email" formControlName="email"/>
+      <div *ngIf="submitted && formulario['email'].errors">
+        <div>El email: </div>
+        <div *ngIf="formulario['email'].errors['required']">No puede estar vacío</div>
+        <div *ngIf="formulario['email'].errors['email']">Debe ser un email válido</div>
+      </div>
+    </label>
+  </div>
+  <div>
+    <label for="password">Password:
+      <input type="password" formControlName="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"/>
+      <div *ngIf="submitted && formulario['password'].errors">
+        <div>El password: </div>
+        <div *ngIf="formulario['password'].errors['required']">No puede estar vacío</div>
+        <div *ngIf="formulario['password'].errors['pattern']">Debe tener al menos un dígito, una minúscula, una mayúscula y tener como mínimo 8 caracteres</div>
+      </div>
+    </label>
+  </div>
+  <div>
+    <input type="submit" value="Login" />
+    <input type="button" value="Registrar" (click)="onRegister()"/>
+  </div>
+  <app-avisos></app-avisos>
+</form>

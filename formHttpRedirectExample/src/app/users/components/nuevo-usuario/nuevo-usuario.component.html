@@ -1,0 +1,40 @@
+<!-- El formulario se tiene que llamar como hayamos definido la variable formGroup en el ts -->
+<form [formGroup]="nuevoUsuario" (ngSubmit)="onSubmit()">
+    <div>
+      <!-- Tenemos tres controles: uno para el usuario, otro para el email y otro para contraseña -->
+      <!-- Cada input o cada elemento del formulario, del tipo que sea, puede tener asignada la validación como podéis ver aquí -->
+      <label for="usuario">Usuario:
+        <input type="text" formControlName="usuario"/>
+        <div *ngIf="submitted && formulario['usuario'].errors">
+          <div>El usuario: </div>
+          <div *ngIf="formulario['usuario'].errors['required']">No puede estar vacío</div>
+          <div *ngIf="formulario['usuario'].errors['minlenght']">Debe contener más de 3 caracteres</div>
+        </div>
+      </label>
+    </div>
+    <div>
+      <label for="email">Email:
+        <input type="email" formControlName="email"/>
+        <div *ngIf="submitted && formulario['email'].errors">
+          <div>El email: </div>
+          <div *ngIf="formulario['email'].errors['required']">No puede estar vacío</div>
+          <div *ngIf="formulario['email'].errors['email']">Debe ser un email válido</div>
+        </div>
+      </label>
+    </div>
+    <div>
+      <label for="password">Password:
+        <input type="password" formControlName="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"/>
+        <div *ngIf="submitted && formulario['password'].errors">
+          <div>El password: </div>
+          <div *ngIf="formulario['password'].errors['required']">No puede estar vacío</div>
+          <div *ngIf="formulario['password'].errors['pattern']">Debe tener al menos un dígito, una minúscula, una mayúscula y tener como mínimo 8 caracteres</div>
+        </div>
+      </label>
+    </div>
+    <div>
+      <input type="submit" value="Enviar" />
+      <input type="reset" value="Cancelar" (click)="onReset()"/>
+    </div>
+    <app-avisos></app-avisos>
+</form>
