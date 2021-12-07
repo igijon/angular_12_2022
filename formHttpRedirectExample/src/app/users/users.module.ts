@@ -17,7 +17,7 @@ import { UsersRoutingModule } from './users-routing.module';
     UsersRoutingModule
   ],
   exports: [
-    LoginComponent
+    
   ]
 })
 export class UsersModule { }

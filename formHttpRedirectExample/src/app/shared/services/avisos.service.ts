@@ -12,10 +12,10 @@ export class AvisosService {
     this.visible = false;
   }
 
-  showMessage(mensaje: string, route ?: string) {
+  showMessage(mensaje: string, route ?: string, params?: any) {
     this.mensaje = mensaje;
     this.visible = true;
-    this.waitToHideAndRoute(route);
+    this.waitToHideAndRoute(route, params);
   }
 
 
@@ -27,10 +27,10 @@ export class AvisosService {
   /**
    * Espera 4 segundos antes de ocultar el mensaje
    */
-  waitToHideAndRoute(route ?: string): void {
+  waitToHideAndRoute(route ?: string, params ?: any): void {
     setTimeout(() => {
       this.hideMessage();
-      if(route != undefined) this.router.navigate([route]);
+      if(route != undefined) this.router.navigate([route], params);
     }, 4000);
   }
 }

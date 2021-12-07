@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
       return;
 
     //Podemos obtener en un json TODOS los valores de los controles del formulario
-    let user = new User("", this.login.value.email, this.login.value.password);
+    this.user = new User("", this.login.value.email, this.login.value.password);
     this.onReset();
     //Deberíamos realizar esta petición para comprobar el usuario y después navegar a la pantalla principal
     //Después del aviso
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
       }
     })*/
     //Esta línea redirige siempre al principal, cuando se descomente la parte del api, comentar esta
-    this.notificationService.showMessage(`Usuario ${user.email} logeado`,'app/home');
+    this.notificationService.showMessage(`Usuario ${this.user.email} logeado`,'app/home', {queryParams: this.user} );
 
   }
 
