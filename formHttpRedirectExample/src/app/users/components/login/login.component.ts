@@ -44,9 +44,9 @@ export class LoginComponent implements OnInit {
     this.onReset();
     //Deberíamos realizar esta petición para comprobar el usuario y después navegar a la pantalla principal
     //Después del aviso
-    /*this.restUserService.getUser(user).subscribe({
+    /*this.restUserService.login(user).subscribe({
       next: (user) => {
-        this.notificationService.showMessage('Usuario ${this.nuevoUsuario.value.email} logeado.', 'principal');
+        this.notificationService.showMessage('Usuario ${this.nuevoUsuario.value.email} logeado.', 'principal', {queryParams: this.user});
         this.user = user;
       },
       error: e => {

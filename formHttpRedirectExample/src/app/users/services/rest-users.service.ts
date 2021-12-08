@@ -31,6 +31,17 @@ export class RestUsersService {
     );
   }
 
+  //Login de un usuario
+  public login(user: User) {
+    let url: string = "https://.../login";
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      //Aquí si necesitásemos un token de autenticación lo meteríamos
+      //Authorization: `Bearer ${authToken}`
+    });
+    return this.http.post(url, user, {headers: headers})
+  }
+
   //Registra un usuario
   public addUser(user: User) {
     const url: string = "https://.../user"
