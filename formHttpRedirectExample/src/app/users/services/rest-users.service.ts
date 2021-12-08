@@ -39,7 +39,11 @@ export class RestUsersService {
       //Aquí si necesitásemos un token de autenticación lo meteríamos
       //Authorization: `Bearer ${authToken}`
     });
-    return this.http.post(url, user, {headers: headers})
+    return this.http.post<UserResponse>(url, user, {headers: headers}).pipe(
+      map((resp:UserResponse) => {
+        return User.userFromJSON(user)
+      })
+    );
   }
 
   //Registra un usuario

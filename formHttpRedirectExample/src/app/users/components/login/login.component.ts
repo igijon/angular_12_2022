@@ -8,25 +8,28 @@ import { RestUsersService } from '../../services/rest-users.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-
   login: FormGroup;
   submitted: boolean = false;
   user?: User;
 
-  constructor(private formBuilder: FormBuilder, private restUserService: RestUsersService, private notificationService: AvisosService, private router: Router) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private restUserService: RestUsersService,
+    private notificationService: AvisosService,
+    private router: Router
+  ) {
     //con esto en el constructor estamos definiendo un formulario reactivo de Angular, indicando que va a tener
     //dos controles usuario e email que se van a corresponder con los nombres de los controles en el HTML.
     this.login = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern]]
+      password: ['', [Validators.required, Validators.pattern]],
     });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   //Devuelve los controles del formulario (esto se usa en el html)
   get formulario() {
@@ -36,17 +39,16 @@ export class LoginComponent implements OnInit {
   //Método que hace el envío del formulario
   onSubmit() {
     this.submitted = true;
-    if(this.login.invalid)
-      return;
+    if (this.login.invalid) return;
 
     //Podemos obtener en un json TODOS los valores de los controles del formulario
-    this.user = new User("", this.login.value.email, this.login.value.password);
+    this.user = new User('', this.login.value.email, this.login.value.password);
     this.onReset();
     //Deberíamos realizar esta petición para comprobar el usuario y después navegar a la pantalla principal
     //Después del aviso
-    /*this.restUserService.login(user).subscribe({
+    /*this.restUserService.login(this.user).subscribe({
       next: (user) => {
-        this.notificationService.showMessage('Usuario ${this.nuevoUsuario.value.email} logeado.', 'principal', {queryParams: this.user});
+        this.notificationService.showMessage(`Usuario ${user.email} logeado.`, 'principal', {queryParams: this.user});
         this.user = user;
       },
       error: e => {
@@ -54,8 +56,11 @@ export class LoginComponent implements OnInit {
       }
     })*/
     //Esta línea redirige siempre al principal, cuando se descomente la parte del api, comentar esta
-    this.notificationService.showMessage(`Usuario ${this.user.email} logeado`,'app/home', {queryParams: this.user} );
-
+    this.notificationService.showMessage(
+      `Usuario ${this.user.email} logeado`,
+      'app/home',
+      { queryParams: this.user }
+    );
   }
 
   //Permite limpiar el formulario
@@ -67,5 +72,4 @@ export class LoginComponent implements OnInit {
   onRegister() {
     this.router.navigate(['users/register']);
   }
-
 }
